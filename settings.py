@@ -12,7 +12,17 @@ HADOOP_APP_MASTER_CORE = 1
 
 HDFS_ACCESS_UNAME = "hdfs"
 
-SPARK_JAR_LOCATION = "/user/spark/share/lib/spark-assembly.jar"
+SPARK_JAR_LOCATION = {  
+        "CDH" :  {
+            "common" :  "/user/spark/share/lib/spark-assembly.jar"
+        }
+        "HDP" : {
+            "common" : "/user/spark/share/lib/spark-assembly.jar",
+            "2.4.0.0-169" : "/hdp/apps/2.4.0.0-169/spark/spark-hdp-assembly.jar",
+            "2.3.2.0-2950" : "/hdp/apps/2.4.0.0-2950/spark/spark-hdp-assembly.jar"
+        }
+}
+
 SPARK_PROJECT_FOLDER = "/tmp/spark_job"
 SPARK_PROPERTY_FILE_NAME = "spark-yarn.properties"
 SPARK_DEFAULT_PROPERTIES = {

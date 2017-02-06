@@ -1,4 +1,4 @@
-import scheduler_setting
+import settings
 import ntpath
 import requests
 import json
@@ -23,19 +23,19 @@ class SparkJobHandler( object ):
             hadoop_web_hdfs, hadoop_nn, env_type="CDH" ,local_jar=False, spark_properties=None):
         self.logger = logger
         self.job_name = job_name
-        self.spark_project_folder = scheduler_setting.SPARK_PROJECT_FOLDER
+        self.spark_project_folder = settings.SPARK_PROJECT_FOLDER
         self.jar = jar
         self.run_class = run_class
-        self.hadoop_rm = scheduler_setting.HADOOP_RESOURCE_MANAGER_PATH % hadoop_rm
-        self.hadoop_web_hdfs = scheduler_setting.HADOOP_WEB_HDFS_PATH % hadoop_web_hdfs
-        self.hadoop_nn = scheduler_setting.HADOOP_NAME_NODE_PATH % hadoop_nn
-        self.hadoop_uri_auth = scheduler_setting.HADOOP_URI_AUTH
-        self.hadoop_uri_uname = scheduler_setting.HADOOP_URI_UNAME
-        self.hadoop_uri_pass = scheduler_setting.HADOOP_URI_PASS
-        self.hdfs_access_uname = scheduler_setting.HDFS_ACCESS_UNAME
-        self.spark_properties = scheduler_setting.SPARK_DEFAULT_PROPERTIES
-        self.spark_properties_name = scheduler_setting.SPARK_PROPERTY_FILE_NAME
-        self.spark_jar_path = scheduler_setting.SPARK_JAR_LOCATION
+        self.hadoop_rm = settings.HADOOP_RESOURCE_MANAGER_PATH % hadoop_rm
+        self.hadoop_web_hdfs = settings.HADOOP_WEB_HDFS_PATH % hadoop_web_hdfs
+        self.hadoop_nn = settings.HADOOP_NAME_NODE_PATH % hadoop_nn
+        self.hadoop_uri_auth = settings.HADOOP_URI_AUTH
+        self.hadoop_uri_uname = settings.HADOOP_URI_UNAME
+        self.hadoop_uri_pass = settings.HADOOP_URI_PASS
+        self.hdfs_access_uname = settings.HDFS_ACCESS_UNAME
+        self.spark_properties = settings.SPARK_DEFAULT_PROPERTIES
+        self.spark_properties_name = settings.SPARK_PROPERTY_FILE_NAME
+        self.spark_jar_path = settings.SPARK_JAR_LOCATION[env_type]["common"]
         self.local_jar = local_jar
         self.env_type = env_type
         if spark_properties is not None:
@@ -140,7 +140,7 @@ class SparkJobHandler( object ):
         # Define spark Job based on env_typr
         if self.env_type == 'CDH':
             command = {
-                    "command" : scheduler_setting.SPARK_CDH_EXECUTION_COMMAND % (self.job_name, self.run_class, self.job_name)
+                    "command" : settings.SPARK_CDH_EXECUTION_COMMAND % (self.job_name, self.run_class, self.job_name)
                 }
             application_type = "SPARK"
             environment = {
@@ -148,11 +148,11 @@ class SparkJobHandler( object ):
                     [
                         {
                             "key": "SPARK_USER",
-                            "value": "%s" % scheduler_setting.HDFS_ACCESS_UNAME
+                            "value": "%s" % settings.HDFS_ACCESS_UNAME
                         },
                         {
                             "key": "HADOOP_USER_NAME",
-                            "value": "%s" % scheduler_setting.HDFS_ACCESS_UNAME
+                            "value": "%s" % settings.HDFS_ACCESS_UNAME
                         },
                         {
                             "key": "SPARK_YARN_STAGING_DIR",
@@ -164,11 +164,11 @@ class SparkJobHandler( object ):
                         },
                         {
                             "key": "user.name",
-                            "value": "%s" % scheduler_setting.HDFS_ACCESS_UNAME
+                            "value": "%s" % settings.HDFS_ACCESS_UNAME
                         },
                         {
                             "key": "CLASSPATH",
-                            "value": scheduler_setting.SPARK_CDH_JOB_CLASSPATH                         
+                            "value": settings.SPARK_CDH_JOB_CLASSPATH                         
                         },
                         {
                             "key": "SPARK_YARN_CACHE_FILES",
@@ -188,13 +188,13 @@ class SparkJobHandler( object ):
                         },
                         {
                             "key": "LD_LIBRARY_PATH",
-                            "value": "{{HADOOP_COMMON_HOME}}/../../../" + scheduler_setting.CDH_VERSION + "/lib/hadoop/lib/native:$LD_LIBRARY_PATH"
+                            "value": "{{HADOOP_COMMON_HOME}}/../../../" + settings.CDH_VERSION + "/lib/hadoop/lib/native:$LD_LIBRARY_PATH"
                         }
                     ]
                 }
         elif self.env_type == 'HDP':
             command = {
-                    "command" : scheduler_setting.SPARK_HDP_EXECUTION_COMMAND % (scheduler_setting.HDP_VERSION, self.job_name, self.run_class, self.job_name)
+                    "command" : settings.SPARK_HDP_EXECUTION_COMMAND % (settings.HDP_VERSION, self.job_name, self.run_class, self.job_name)
                 }
             application_type = "YARN"
             environment = {
@@ -202,11 +202,11 @@ class SparkJobHandler( object ):
                     [
                         {
                             "key": "HADOOP_USER_NAME",
-                            "value": "%s" % scheduler_setting.HDFS_ACCESS_UNAME
+                            "value": "%s" % settings.HDFS_ACCESS_UNAME
                         },
                         {
                             "key": "HDP_VERSION",
-                            "value": "%s" % scheduler_setting.HDP_VERSION
+                            "value": "%s" % settings.HDP_VERSION
                         },
                         {
                             "key": "SPARK_YARN_MODE",
@@ -214,11 +214,11 @@ class SparkJobHandler( object ):
                         },
                         {
                             "key": "user.name",
-                            "value": "%s" % scheduler_setting.HDFS_ACCESS_UNAME
+                            "value": "%s" % settings.HDFS_ACCESS_UNAME
                         },
                         {
                             "key": "CLASSPATH",
-                            "value": scheduler_setting.SPARK_HDP_JOB_CLASSPATH                         
+                            "value": settings.SPARK_HDP_JOB_CLASSPATH                         
                         },
                         {
                             "key": "SPARK_YARN_CACHE_FILES",
@@ -267,10 +267,10 @@ class SparkJobHandler( object ):
                 "environment":  environment            
             },
             "unmanaged-AM": False,
-            "max-app-attempts": scheduler_setting.HADOOP_MAX_JOB_SUBMIT_ATTEMPT,
+            "max-app-attempts": settings.HADOOP_MAX_JOB_SUBMIT_ATTEMPT,
             "resource": {  
-                "memory": scheduler_setting.HADOOP_APP_MASTER_MEMORY,
-                "vCores": scheduler_setting.HADOOP_APP_MASTER_CORE
+                "memory": settings.HADOOP_APP_MASTER_MEMORY,
+                "vCores": settings.HADOOP_APP_MASTER_CORE
             },
             "application-type": application_type,
             "keep-containers-across-application-attempts": False

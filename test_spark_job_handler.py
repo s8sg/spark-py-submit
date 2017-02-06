@@ -18,7 +18,7 @@ class SparkJobHandlerTest(unittest.TestCase):
         trackingUrl = sparkJob.run()
         print "Job Tracking URL: %s" % trackingUrl
         
-    # NOTE: Jar should be present at: /test_data/simple-project_2.10-1.0.jar is available at: 
+    # NOTE: Jar should be present at: /tmp/test_data/simple-project_2.10-1.0.jar is available at: 
     #       http://rma:50070/webhdfs/v1/tmp/test_data/simple-project_2.10-1.0.jar
     def test_remote_job_submit(self):
         logger = logging.getLogger('TestRemoteJobSubmit')
