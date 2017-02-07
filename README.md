@@ -19,7 +19,7 @@ A python library that can submit spark job to spark yarn cluster using rest API
 **local_jar:** flag to define if a jar is local (Local jar gets uploaded to hdfs)  
 **spark_properties:** custom properties that need to be set  
 
-```
+```python
 	# Import the SparkJobHandler
 	from spark_job_handler import SparkJobHandler
 
@@ -38,7 +38,7 @@ The above code starts an spark application using the local jar (simple-project/t
 For more example see the [test_spark_job_handler.py](https://github.com/s8sg/spark-py-submit/blob/master/test_spark_job_handler.py)  
 
 #### Build the simple-project
-```
+```bash
   $ cd simple-project
   $ sbt package;cd ..
 ```
@@ -50,21 +50,21 @@ Add the node IP for hadoop resource manager and Name node in the test_cases:
 * nn: Name Node
 
 #### load the data and make it available to HDFS:
-```
+```bash
   $ wget https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data
 ```
 upload data to the HDFS:  
-```
+```bash
   $ python upload_to_hdfs.py <name_nodei_ip> iris.data /tmp/iris.data
 ```
 
 #### Run the test cases:
 Make the simple-project jar available in HDFS to test remote jar:
-```
+```bash
   $ python upload_to_hdfs.py <name_nodei_ip> simple-project/target/scala-2.10/simple-project_2.10-1.0.jar /tmp/test_data/simple-project_2.10-1.0.jar
 ```
 Run the test: 
-```
+```bash
   $ python test_spark_job_handler.py 
 ```
 
