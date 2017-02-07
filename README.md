@@ -2,13 +2,12 @@
 
 A python library that can submit spark job to spark yarn cluster using rest API   
 
-**Note: It Currently supports the CDH(5.6.1) and HDP(2.3.2.0-2950,2.4.0.0-169)**
-       **The Library is Inspired from: `github.com/bernhard-42/spark-yarn-rest-api`**
+**Note: It Currently supports the CDH(5.6.1) and HDP(2.3.2.0-2950,2.4.0.0-169)**   
+       The Library is Inspired from: `github.com/bernhard-42/spark-yarn-rest-api`  
 
+### Getting Started:
 
-#### Getting Started:
-
-##### Use the library
+#### Use the library
 **Spark Job Handler**:  
 **jobName:** name of the Spark Job   
 **jar:** location of the Jar (local/hdfs)  
@@ -17,7 +16,7 @@ A python library that can submit spark job to spark yarn cluster using rest API
 **hadoop_web_hdfs:** hadoop web hdfs ip   
 **hadoop_nn:** hadoop name node ip (Normally same as of web_hdfs)  
 **env_type**: env type is CDH or HDP  
-**local_jar:** flag to define if a jar is local (Local jar gets uploaded to hdfs at submit)  
+**local_jar:** flag to define if a jar is local (Local jar gets uploaded to hdfs)  
 **spark_properties:** custom properties that need to be set  
 
 ```
@@ -38,19 +37,19 @@ A python library that can submit spark job to spark yarn cluster using rest API
 The above code starts an spark application using the local jar (simple-project/target/scala-2.10/simple-project_2.10-1.0.jar)  
 For more example see the [test_spark_job_handler.py](https://github.com/s8sg/spark-py-submit/blob/master/test_spark_job_handler.py)  
 
-##### Build the simple-project
+#### Build the simple-project
 ```
-	$ cd simple-project
-	$ sbt package;cd ..
+  $ cd simple-project
+  $ sbt package;cd ..
 ```
 The above steps will create the target jar as: `./simple-project/target/scala-2.10/simple-project_2.10-1.0.jar`
 
-##### Update the nodes Ip in test:
+#### Update the nodes Ip in test:
 Add the node IP for hadoop resource manager and Name node in the test_cases:   
 * rm: Resource Manager
 * nn: Name Node
 
-##### load the data and make it available to HDFS:
+#### load the data and make it available to HDFS:
 ```
   $ wget https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data
 ```
@@ -59,20 +58,20 @@ upload data to the HDFS:
   $ python upload_to_hdfs.py <name_nodei_ip> iris.data /tmp/iris.data
 ```
 
-##### Run the test cases:
+#### Run the test cases:
 Make the simple-project jar available in HDFS to test remote jar:
 ```
   $ python upload_to_hdfs.py <name_nodei_ip> simple-project/target/scala-2.10/simple-project_2.10-1.0.jar /tmp/test_data/simple-project_2.10-1.0.jar
 ```
 Run the test: 
 ```
-	$ python test_spark_job_handler.py 
+  $ python test_spark_job_handler.py 
 ```
 
-##### Utility:
+#### Utility:
 * upload_to_hdfs.py: upload local file to hdfs file system
 
-##### Notes: 
+#### Notes: 
 The Library is still in early stage and need testing, fixing and documentation   
 Before running, follow the below steps:   
 * Update the Port if required in settings.py  
