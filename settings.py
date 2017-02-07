@@ -15,7 +15,7 @@ HDFS_ACCESS_UNAME = "hdfs"
 SPARK_JAR_LOCATION = {  
         "CDH" :  {
             "common" :  "/user/spark/share/lib/spark-assembly.jar"
-        }
+        },
         "HDP" : {
             "common" : "/user/spark/share/lib/spark-assembly.jar",
             "2.4.0.0-169" : "/hdp/apps/2.4.0.0-169/spark/spark-hdp-assembly.jar",
