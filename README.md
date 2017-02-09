@@ -2,11 +2,22 @@
 
 A python library that can submit spark job to spark yarn cluster using rest API   
 
+[![Build Status](https://travis-ci.org/s8sg/spark-py-submit.svg?branch=master)](https://travis-ci.org/s8sg/spark-py-submit)
+
 **Note: It Currently supports the CDH(5.6.1) and HDP(2.3.2.0-2950,2.4.0.0-169)**   
        The Library is Inspired from: `github.com/bernhard-42/spark-yarn-rest-api`  
 
 ### Getting Started:
 
+#### Get the library
+Clone to your project path
+```
+  $ git clone https://github.com/s8sg/spark-py-submit.git
+```
+Install using pip
+```
+  $ pip install spark-yarn-submit
+```
 #### Use the library
 ```python
 # Import the SparkJobHandler
