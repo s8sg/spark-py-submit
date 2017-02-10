@@ -1,11 +1,11 @@
 Spark Py Submit
 ===============
 
-A python library that can submit spark job to spark yarn cluster using
+A python library that can submit spark job to spark cluster and standalone using
 rest API
 
 | **Note: It Currently supports the CDH(5.6.1) and
-  HDP(2.3.2.0-2950,2.4.0.0-169)**
+  HDP(2.3.2.0-2950,2.4.0.0-169) yarn cluster**
 | The Library is Inspired from:
   ``github.com/bernhard-42/spark-yarn-rest-api``
 
@@ -106,4 +106,4 @@ Notes:
   settings.py
 | \* Make the spark-jar available in hdfs as:
   ``hdfs:/user/spark/share/lib/spark-assembly.jar``
-| For Contribution Please Create Issue corresponding PR
+| For Contribution Please Create Issue corresponding PR at: github.com/s8sg/spark-py-submit

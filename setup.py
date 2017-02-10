@@ -11,14 +11,14 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='spark-yarn-submit',
+    name='spark-py-submit',
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
     version='1.0.0',
 
-    description='library to handle spark job submit in a yarn cluster in different environment',
+    description='library to handle spark job submit in a spark cluster and standalone mode in different environment',
     long_description=long_description,
 
     # The project's main homepage.
@@ -58,7 +58,7 @@ setup(
     ],
 
     # What does your project relate to?
-    keywords='spark yarn submit bigdata hadoop',
+    keywords='spark cluster yarn standalone submit bigdata hadoop',
 
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
